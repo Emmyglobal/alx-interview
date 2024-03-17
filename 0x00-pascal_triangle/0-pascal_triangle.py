@@ -4,27 +4,26 @@
 
 def factorial(num):
     """ Factorial Function """
-    if (num == 1) or (num == 0):
+    if num == 0:
         return 1
-    return (num * factorial(num-1))  # multiplication
+    return num * factorial(num - 1)
 
 
-def pascal_triangle(n):  # n = number
+def pascal_triangle(n):
     """ Pascal function """
-    triangle = []  # empty list
-    if (n <= 0):  # conditional statement for number less than 1
-        return triangle
-    for x in range(0, n):  # iterate through 0 to (number-1) x is row number
-        temp = []  # temporary empty list
-        for y in range(0, x+1):  # iterate through 0 to(x+1) y is column number
-            # print(x,y)
-            temp.append(Combination(x, y))  # called the combination function
+    triangle = []  # Initialize the triangle list
+    if n <= 0:
+        return triangle  # Return an empty list for invalid inputs
+    for x in range(n):
+        temp = []
+        for y in range(x + 1):
+            value = factorial(x) // (factorial(y) * factorial(x - y))
+            temp.append(value)
         triangle.append(temp)
+    return triangle  # Return the Pascal's triangle list
 
-    return (triangle)
 
-
-def Combination(x, y):
-    """ Combination FUnction """
-    # print("I am base fact",factorial(y) * factorial(x-y))
-    return int(factorial(x)/(factorial(y)*factorial(x-y)))
+def print_triangle(triangle):
+    """Prints the Pascal's triangle"""
+    for row in triangle:
+        print(row)
