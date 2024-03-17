@@ -28,16 +28,3 @@ def Combination(x, y):
     """ Combination FUnction """
     # print("I am base fact",factorial(y) * factorial(x-y))
     return int(factorial(x)/(factorial(y)*factorial(x-y)))
-
-#   0 1 2 3
-# 0# 1
-# 1# 1 1
-# 2# 1 2 1
-# 3# 1 3 3 1
-
-# Combination = nCr n!/r!*(n-r)!
-# n = no of current row
-# r = no of current column
-# 0C0 = 2!/1!*(2-1)! = 2/1
-
-# Factorial = n(n-1)!
