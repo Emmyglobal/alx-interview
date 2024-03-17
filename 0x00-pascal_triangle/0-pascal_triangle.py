@@ -1,20 +1,31 @@
 #!/usr/bin/python3
-"""
-A script that prints pascal triangle
-"""
+"""This Script solves the pascal principle"""
 
 
-def pascal_triangle(n):
-    if n <= 0:
-        return []
+def factorial(num):
+    """ Factorial Function """
+    if (num == 1) or (num == 0):
+        return 1
+    return (num * factorial(num-1))  # multiplication
 
-    triangle = []
-    for i in range(n):
-        row = [1]
-        if i > 0:
-            prev_row = triangle[-1]
-            for j in range(1, i):
-                row.append(prev_row[j - 1] + prev_row[j])
-            row.append(1)
-        triangle.append(row)
-    return triangle
+
+def pascal_triangle(n):  # n = number
+    """ Pascal function """
+    triangle = []  # empty list
+    if (n <= 0):  # conditional statement for number less than 1
+        return triangle
+    for x in range(0, n):  # iterate through 0 to (number-1) x is row number
+        temp = []  # temporary empty list
+        for y in range(0, x+1):  # iterate through 0 to(x+1) y is column number
+            # print(x,y)
+            temp.append(Combination(x, y))  # called the combination function
+        triangle.append(temp)
+
+    return (triangle)
+
+
+def Combination(x, y):
+    """ Combination FUnction """
+    # print("I am base fact",factorial(y) * factorial(x-y))
+    return int(factorial(x)/(factorial(y)*factorial(x-y)))
+
