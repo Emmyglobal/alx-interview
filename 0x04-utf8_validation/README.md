@@ -4,7 +4,7 @@
 
 - Bitwise Operations in Python:
 
-Understanding how to manipulate bits in Python, including operations like AND (&), OR (|), XOR (^), NOT (~), shifts (<<, >>).
+```Understanding how to manipulate bits in Python, including operations like AND (&), OR (|), XOR (^), NOT (~), shifts (<<, >>).
 Python Bitwise Operators
 UTF-8 Encoding Scheme:
 
