@@ -1,31 +1,26 @@
 #!/usr/bin/node
+const id = process.argv.slice(2);  // cmd args
+const url = `https://swapi-api.hbtn.io/api/films/${id[0]}/`;
 
 const request = require('request');
-
-const movieId = process.argv[2];
-const movieEndpoint = 'https://swapi-api.alx-tools.com/api/films/' + movieId;
-
-function sendRequest (characterList, index) {
-  if (characterList.length === index) {
-    return;
-  }
-
-  request(characterList[index], (error, response, body) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(JSON.parse(body).name);
-      sendRequest(characterList, index + 1);
-    }
-  });
-}
-
-request(movieEndpoint, (error, response, body) => {
+request(url, async function (error, response, body) {
   if (error) {
-    console.log(error);
-  } else {
-    const characterList = JSON.parse(body).characters;
-
-    sendRequest(characterList, 0);
+    return console.error(error);
+  }
+  // convert return body to json
+  const bodyJson = JSON.parse(body);
+  // iterate through xters url in object
+  for (const characters of bodyJson.characters) {
+    // fetch their details and wait for response
+    await new Promise(function (resolve, reject) {
+      request(characters, function (error, response, body) {
+        if (error) {
+          return console.error(error);
+        }
+        const xterJson = JSON.parse(body);
+        console.log(xterJson.name);
+        resolve();
+      });
+    });
   }
 });
