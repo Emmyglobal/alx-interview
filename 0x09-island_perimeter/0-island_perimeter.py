@@ -1,28 +1,47 @@
 #!/usr/bin/python3
-"""module docs for 0-island_perimeter.py"""
+"""Module that calculates the perimeter of the island
+described in grid.
+"""
 
 
 def island_perimeter(grid):
-    """returns the perimeter of the island described in grid"""
+    """Returns the perimetr of the island"""
+
     perimeter = 0
-    rows = len(grid)
-    columns = len(grid[0]) if rows else 0
-    for i in range(rows):
-        for j in range(columns):
-            # print(f"J = {j}")
-            # treat each cell as a square; perimeter of cell == 4l
-            perimeter += 4 * grid[i][j]
-            # since it's completely surrounded by water
-            # 1st row must be zeros
-            if i > 0 and i < rows - 1:  # for oda rows
-                # print(grid[i][j], grid[i-1][j])
-                # deduct breadth if it borders a land horizontally
-                perimeter -= grid[i][j] * grid[i-1][j]
-                perimeter -= grid[i][j] * grid[i+1][j]
-            # if i < rows - 1: perimeter -= grid[i][j] * grid[i+1][j]
-            if (j > 0) and (j < columns - 1):
-                # deduct length if it borders a land vertically
-                perimeter -= grid[i][j] * grid[i][j-1]
-                perimeter -= grid[i][j] * grid[i][j+1]
-            # if j < columns - 1: perimeter -= grid[i][j] * grid[i][j+1]
+    # Loops through the grid cell by cell.
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            # If the cell is not 0.
+            if grid[i][j]:
+                # Increments the perimeter by counting
+                # the water around the cell
+                perimeter += num_water(grid, i, j)
+
     return perimeter
+
+
+def num_water(grid, i, j):
+    """Returns the number of water a cell has in a grid."""
+
+    # num increases if water is detected.
+    num = 0
+    # First Condition to check water on the cell's top side.
+    if i <= 0 or not grid[i - 1][j]:
+        num += 1
+        # print(f"first if, {i},{j}")
+    # Second Condition to check water on the cell's left side.
+    if j <= 0 or not grid[i][j - 1]:
+        num += 1
+        # print(f"second if, {i},{j}")
+    # Third Condition checks water on the cell's left side
+    # and the if it's at the end grid.
+
+    if j >= len(grid[i]) - 1 or not grid[i][j - 1]:
+        num += 1
+        # print(f"third if, {i},{j}")
+    # Fourth Condition checks water on the cell's down side.
+    if i >= len(grid) - 1 or not grid[i + 1][j]:
+        num += 1
+        # print(f"fourth if, {i},{j}")
+
+    return num
